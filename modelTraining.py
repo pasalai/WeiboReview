@@ -6,37 +6,41 @@
 # @File    : modelTraining.py
 # @Software: PyCharm
 
-from snownlp import SnowNLP
-# 加载情感分析模块
+import re
 from snownlp import sentiment
+import numpy as np
+import pymysql
+from snownlp import SnowNLP
+import matplotlib.pyplot as plt
+from snownlp import sentiment
+from snownlp.sentiment import Sentiment
 
-text = "".join()  # 文本
-s = SnowNLP(text)
+conn = pymysql.connect(host='localhost', user='root', password='root', charset="utf8", use_unicode=False)  # 连接服务器
+with conn:
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM test.weibo WHERE weiboId < '%d'" % 6000000)
+    rows = cur.fetchall()
+comment = []
+for row in rows:
+    row = list(row)
+    comment.append(row[18])
 
-# todo snownlp常用方法
-print(s.keywords(10))  # 提取 10个关键词  数字代表提取数量
-print('/'.join(s.words))  # 分词
-print(s.sentences)  # 断句
 
-# s.sentiments  会对文本进行评分
+def train_model(texts):
+    for li in texts:
+        comm = li.decode('utf-8')
+        text = re.sub(r'(?:回复)?(?://)?@[\w\u2E80-\u9FFF]+:?|\[\w+\]', ',', comm)
+        socre = SnowNLP(text)
+        if socre.sentiments > 0.8:
+            with open('pos.txt', mode='a', encoding='utf-8') as g:
+                g.writelines(comm + "\n")
+        elif socre.sentiments < 0.3:
+            with open('neg.txt', mode='a', encoding='utf-8') as f:
+                f.writelines(comm + "\n")
+        else:
+            pass
 
-f1 = open('./pos.txt', 'a+')  # 存放正面
-f2 = open('./neg.txt', 'a+')  # 存放负面
-if s.sentiments < 0.3:  # 可以自定义范围
-    print('这是一个负面评价')
-    # 这段文本写入neg文件中
-    f2.write(text)
-    f2.write('\n')
 
-elif s.sentiments > 0.8:  # 可以自定义范围
-    print('这是一个正面评价')
-    # 这段文本写入pos文件中
-    f1.write(text)
-    f1.write('\n')
-else:
-    print('这是一个中性评价')
-
-# 保存此次的训练模型
+train_model(comment)
 sentiment.train('neg.txt', 'pos.txt')
-# 生成新的训练模型
 sentiment.save('sentiment.marshal')
