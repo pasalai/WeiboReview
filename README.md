@@ -8,6 +8,7 @@
 * 获取<code>accessoken</code>:    
 将得到的App Key及App Secret值填入本程序<code>./weiboApi/weiboApi.py</code>中对应的值，运行后将自动打开浏览器的<code>微博OAuth2.0</code>页面，在url中，包含一个<code>code=*****</code>，复制code值，回到本程序，将code的值填入程序运行后的输入栏，运行后输出<code>accesstoken</code>
 * 根据开发者文档的评论接口页面的接口说明，使用获得的accesstoken及相关微博文章的ID构造API链接，访问，并复制cookie,将<code>./start.py</code>中链接及cookie替换。
+* 执行<code>pip3 install -r requirements.txt</code>安装引用到的库，或直接安装[Anaconda](https://www.anaconda.com/)
 * 运行<code>./start.py</code>，数据会自动格式化并保存至<code>./outPut/评论.csv</code>
 ## 更新日志    
 ### 2019年12月5日    
