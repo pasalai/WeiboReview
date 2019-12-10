@@ -19,5 +19,3 @@
 * 添加了通过AppKey及AppSecret获取access_token的程序（./weiboAPI）:[olwolf/sinaweibopy3](https://github.com/olwolf/sinaweibopy3)
 * 根据开发者文档构建获取评论的链接    
 <code>https://api.weibo.com/2/comments/show.json?access_token=[your_access_token]&id=[微博的ID]&count=[1~200]200&page=1</code>
-
-hehe
