@@ -20,16 +20,16 @@ class getInfo(object):
     def __init__(self, page):
         self.url = f"https://api.weibo.com/2/comments/show.json?access_token=2.00AICJkHKHfXOC0ca80471b00LcIop&id=4440448116340041&count=200&page={page}"
         self.headers = {
-            "cookie": "Cookie: SINAGLOBAL=8274801057093.762.1564200851915; _s_tentry=open.sina.com.cn; Apache=9305675615267.682.1575617438860; ULV=1575617438977:12:6:6:9305675615267.682.1575617438860:1575611575965; ALF=1607153459; SSOLoginState=1575617459; SCF=AhkCB2rNvAv-9nbPzKRrD-HllSeFy8O2oFXjbSOgN5kq-H72VltZ36uddbJvDlPMobyQOA-5T7hMvehs4NjXtqA.; SUB=_2A25w7nPkDeThGeFO4lYW-SrIyjqIHXVTmuIsrDV8PUNbmtAfLWfxkW9NQVRWkiFq3lCMatdy4gMpV0WTOCYZ6Uf7; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWypBWbg6zJc73PgN7FFQAe5JpX5KzhUgL.FoM71KBN1KBXeKq2dJLoIp5LxKqL1-BLBKH0q0-0So.0; SUHB=0sqR5-faWK_XgW; wvr=6; UOR=,,graph.qq.com; JSESSIONID=7642D42BFB7933B6D7CBC5524CF8CD92; webim_unReadCount=%7B%22time%22%3A1575617801850%2C%22dm_pub_total%22%3A0%2C%22chat_group_client%22%3A0%2C%22allcountNum%22%3A2%2C%22msgbox%22%3A0%7D",
+            "cookie": "Cookie: SINAGLOBAL=8274801057093.762.1564200851915; wvr=6; _s_tentry=www.baidu.com; Apache=6352301425561.806.1575945766559; ULV=1575945766630:13:7:1:6352301425561.806.1575945766559:1575617438977; ALF=1607481877; SSOLoginState=1575945878; SCF=AhkCB2rNvAv-9nbPzKRrD-HllSeFy8O2oFXjbSOgN5kqCRZSH96yV8fPl7TiizuN9zbfTU4_Fnc5HM7iz1cpBJU.; SUB=_2A25w63bGDeThGeFO4lYW-SrIyjqIHXVTge8OrDV8PUNbmtANLWnckW9NQVRWknLtmOSI5VUJquO4t5Xyv9Z4ocet; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWypBWbg6zJc73PgN7FFQAe5JpX5KzhUgL.FoM71KBN1KBXeKq2dJLoIp5LxKqL1-BLBKH0q0-0So.0; SUHB=0QSpCPOkz_IEJf; UOR=,,graph.qq.com; webim_unReadCount=%7B%22time%22%3A1575953836049%2C%22dm_pub_total%22%3A0%2C%22chat_group_client%22%3A0%2C%22allcountNum%22%3A0%2C%22msgbox%22%3A0%7D; JSESSIONID=F4590F83329600BDFB09BCD7A41F3B97",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3941.4 Safari/537.36"}
 
     def Getinfo(self):
+        print(self.url)
         response = requests.get(url=self.url, headers=self.headers).text
         print(response)
         # 将数据保存到json文件中，防止被反扒后没有数据
-        # with open("./outPut/getinfo.json", "a", encoding="utf-8")as fp:
-        #     fp.write(response)
-
+        with open("./outPut/getinfo.json", "a", encoding="utf-8")as fp:
+            fp.write(response)
         return response
 
 
@@ -38,7 +38,7 @@ class run:
         self.initList = []
 
     def run(self):
-        for pageNum in range(1, 2):
+        for pageNum in range(1, 10):
             initgetinfo = getInfo(page=pageNum)  # 初始化网络访问
             response = initgetinfo.Getinfo()
             if "text" in response:
@@ -54,9 +54,11 @@ class run:
                     data = pd.DataFrame(data=self.initList, columns=["评论内容"])
                     data.to_csv("./outPut/评论.csv", mode="a", encoding="utf_8_sig")
             else:
+                print("continue")
                 continue
-            return self.initList
-        time.sleep(random.randint(1, 5))
+            time.sleep(random.randint(1, 5))
+            # return self.initList
+
 
 
 if __name__ == '__main__':
