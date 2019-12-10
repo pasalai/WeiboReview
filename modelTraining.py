@@ -42,5 +42,5 @@ def train_model(texts):
 
 
 train_model(comment)
-sentiment.train('neg.txt', 'pos.txt')
-sentiment.save('sentiment.marshal')
+sentiment.train('./outPut/neg.txt', './outPut/pos.txt')
+sentiment.save('./outPut/sentiment.marshal')
