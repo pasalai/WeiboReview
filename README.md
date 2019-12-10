@@ -1,5 +1,5 @@
 # Micro-blogReview    
-微博评论/爬虫/数据分析/python/数据挖掘    
+![](https://img.shields.io/badge/python-%E5%BE%AE%E5%8D%9A%E8%AF%84%E8%AE%BA-green) ![](https://img.shields.io/badge/python-%E7%88%AC%E8%99%AB-green) ![](https://img.shields.io/badge/python-%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-green) ![](https://img.shields.io/badge/python-%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-green)        
 爬取指定的微博的评论，并进行情感分析    
 ## 运行说明    
 * 首先在[微博开发者平台](https://open.weibo.com)注册登录，并申请，[申请流程点这里](https://www.douban.com/note/449162780/)。
