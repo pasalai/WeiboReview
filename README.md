@@ -1,5 +1,5 @@
 # WeiboReview  微博评论获取并情感分析    
-![](https://img.shields.io/badge/python-3.7-green) ![](https://img.shields.io/badge/weiboAPI-sinaweibopy3-green) ![](https://img.shields.io/badge/Visualization-PyEcharts-green)         
+![](https://img.shields.io/badge/python-3.7-green) ![](https://img.shields.io/badge/NLP-SnowNLP-green) ![](https://img.shields.io/badge/weiboAPI-sinaweibopy3-green) ![](https://img.shields.io/badge/Visualization-PyEcharts-green)         
 爬取指定的微博的评论，并进行情感分析    
 ## 运行说明    
 * 首先在[微博开发者平台](https://open.weibo.com)注册登录，并申请，[申请流程点这里](https://www.douban.com/note/449162780/)。
