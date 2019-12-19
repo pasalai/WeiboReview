@@ -51,6 +51,8 @@ class run:
                     comment = re.sub(label_filter, '', infocont)
                     print(comment)
                     self.initList.append(comment)
+                    with open("./outPut/things.txt", "a", encoding="utf-8") as fp:
+                        fp.write(comment + "\n")
                     data = pd.DataFrame(data=self.initList, columns=["评论内容"])
                     data.to_csv("./outPut/评论.csv", mode="a", encoding="utf_8_sig")
             else:
@@ -60,25 +62,18 @@ class run:
             # return self.initList
 
 
-
 if __name__ == '__main__':
     # 数据分析
     initRun = run()
     infoli = initRun.run()
     print(infoli)
-    # initDataAnalysis = DataAnalysis.dataAnalysis()  # 初始化数据分析接口
-    # with open("AllData.json", encoding="utf-8") as fp:
-    #     info = fp.read()
-    # print(info)
-    # infoList = [info]
-    # print(len(infoList))
-    # print(info)
-    # for keywords in range(len(info)):
-    #     print(info[keywords])
-    #     keyword = info[keywords]
-    #     DAresponse = initDataAnalysis.DataAnalysis(keywords=keyword)  # 调用数据分析接口
-    #     print(DAresponse)
-    # # 数据统计
-    # list_len = initDataAnalysis.Statistics()
-    # # 数据可视化
-    # visualization.visualization(list_len)  # 调用可视化绘图
+
+    initDataAnalysis = DataAnalysis.dataAnalysis()  # 初始化数据分析接口
+    with open("./outPut/things.txt", "r", encoding="utf-8") as fp:
+        for line in fp:
+            # print(line)
+            DAresponse = initDataAnalysis.DataAnalysis(keywords=line)  # 调用数据分析接口
+    # 数据统计
+    list_len = initDataAnalysis.Statistics()
+    # 数据可视化
+    visualization.visualization(list_len)  # 调用可视化绘图
