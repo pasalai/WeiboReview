@@ -7,13 +7,13 @@
 # @Software: PyCharm
 
 import re
-from snownlp import sentiment
-import numpy as np
+# from snownlp import sentiment
+# import numpy as np
 import pymysql
 from snownlp import SnowNLP
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from snownlp import sentiment
-from snownlp.sentiment import Sentiment
+# from snownlp.sentiment import Sentiment
 
 conn = pymysql.connect(host='localhost', user='root', password='root', charset="utf8", use_unicode=False)  # 连接服务器
 with conn:
@@ -32,10 +32,10 @@ def train_model(texts):
         text = re.sub(r'(?:回复)?(?://)?@[\w\u2E80-\u9FFF]+:?|\[\w+\]', ',', comm)
         socre = SnowNLP(text)
         if socre.sentiments > 0.8:
-            with open('pos.txt', mode='a', encoding='utf-8') as g:
+            with open('./outPut/pos.txt', mode='a', encoding='utf-8') as g:
                 g.writelines(comm + "\n")
         elif socre.sentiments < 0.3:
-            with open('neg.txt', mode='a', encoding='utf-8') as f:
+            with open('./outPut/neg.txt', mode='a', encoding='utf-8') as f:
                 f.writelines(comm + "\n")
         else:
             pass
